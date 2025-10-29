@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
-
+// import routes
+import classesRouter from "./routes/classes.js"
 // setup the environmental vars
 dotenv.config();
 
@@ -10,6 +11,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json())
+// connect to test route
+app.use(`/api/classes`, classesRouter);
 
 // setup server port
 // access the .env file port variable or just use 5000 as default
