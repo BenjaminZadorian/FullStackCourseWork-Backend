@@ -1,11 +1,20 @@
 import express from "express";
-const router = express.Router();
 
-router.get("/", async (req, res) => {
-  res.json([
-    { id: 1, subject: "Math", price: 10 },
-    { id: 2, subject: "Science", price: 15 },
-  ]);
-});
+// create a function to export that controls database calls from this route
+export default function classesRouter(db) {
+  const router = express.Router();
 
-export default router
+  // GET all classes
+  router.get(`/`, async (req, res) => {
+    try {
+      const classesCollection = db.collection("classes");
+      const classes = await classesCollection.find().toArray();
+      res.json(classes);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+      res.status(500).json({ message: "Error retrieving classes" });
+    }
+  })
+
+  return router;
+}
