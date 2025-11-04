@@ -2,8 +2,8 @@ import { MongoClient } from "mongodb";
 import PropertiesReader from "properties-reader";
 // load db.properties
 //const properties = PropertiesReader("db.properties");
-
-const mongoUri = properties.get("MONGODB_URI") || process.env.MONGODB_URI;
+// properties.get("MONGODB_URI")
+const mongoUri = process.env.MONGODB_URI;
 
 // create a mongodb instance of the client using the connection string from the db.properties file
 const client = new MongoClient(mongoUri);

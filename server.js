@@ -8,9 +8,10 @@ import lessonsRoutes from "./routes/lessons.js"
 
 // load db.properties
 //const properties = PropertiesReader("db.properties");
+// properties.get("PORT") || 
 
 // setup basic app config
-const PORT = properties.get("PORT") || 5000 || process.env.PORT;
+const PORT = process.env.PORT || 5000 ;
 const app = express();
 
 app.use(cors());
