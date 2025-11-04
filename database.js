@@ -12,20 +12,19 @@ let db;
 
 // function to connect to the database
 export async function connectDB() {
+
+    // return existing database if already connected
+    if (db) return db;
+
     try {
+        
         await client.connect();
         db = client.db("FullStackCoursework") // create database from client connection
         console.log("Connected to MongoDB Database");
+        return db
+
     } catch (error) {
         console.error("Database connection failed: ", error);
-    }
-}
-
-// function to get the database for a route to call
-export function getDB() {
-    if (!db) {
-        throw new Error("Error: Database is not connected");
-    } else {
-        return db;
+        throw error;
     }
 }

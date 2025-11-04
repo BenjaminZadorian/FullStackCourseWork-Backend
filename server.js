@@ -4,7 +4,7 @@ import { connectDB } from "./database.js";
 import PropertiesReader from "properties-reader";
 
 // import routes
-import lessonsRouter from "./routes/lessons.js"
+import lessonsRoutes from "./routes/lessons.js"
 
 // load db.properties
 const properties = PropertiesReader("db.properties");
@@ -16,6 +16,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-connectDB().then(() => {
+
+
+app.get(`/`, (req, res) => {
+    res.send('Backend connected');
+})
+
+connectDB().then((db) => {
+
+    // Connect routes
+    app.use('/lessons', lessonsRoutes(db));
+
     app.listen(PORT, () => console.log(`Server connected on port ${PORT}`));
+}).catch((error) => {
+    console.error("Failed to connect to the database: ", error);
 })
