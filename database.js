@@ -1,9 +1,9 @@
 import { MongoClient } from "mongodb";
 import PropertiesReader from "properties-reader";
 // load db.properties
-const properties = PropertiesReader("db.properties");
+//const properties = PropertiesReader("db.properties");
 
-const mongoUri = properties.get("MONGODB_URI");
+const mongoUri = properties.get("MONGODB_URI") || process.env.MONGODB_URI;
 
 // create a mongodb instance of the client using the connection string from the db.properties file
 const client = new MongoClient(mongoUri);
@@ -17,7 +17,7 @@ export async function connectDB() {
     if (db) return db;
 
     try {
-        
+
         await client.connect();
         db = client.db("FullStackCoursework") // create database from client connection
         console.log("Connected to MongoDB Database");

@@ -7,10 +7,10 @@ import PropertiesReader from "properties-reader";
 import lessonsRoutes from "./routes/lessons.js"
 
 // load db.properties
-const properties = PropertiesReader("db.properties");
+//const properties = PropertiesReader("db.properties");
 
 // setup basic app config
-const PORT = properties.get("PORT") || 5000;
+const PORT = properties.get("PORT") || 5000 || process.env.PORT;
 const app = express();
 
 app.use(cors());
