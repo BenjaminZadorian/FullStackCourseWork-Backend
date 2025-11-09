@@ -19,7 +19,7 @@ export default function registerRouter(db) {
             const existingUser = await userCollections.findOne({$or: [{email}, {username}]})
             // if so, return and error status
             if (existingUser) {
-                return res.status(409).json({message: "Username / Email already in use.  Please pick another"};)
+                return res.status(409).json({message: "Username / Email already in use.  Please pick another"});
             }
 
             const hashedPassword = await bcrypt.hash(password, 12);
