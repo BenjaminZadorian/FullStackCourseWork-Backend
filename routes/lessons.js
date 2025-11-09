@@ -10,11 +10,12 @@ export default function lessonsRouter(db) {
       const lessonsCollection = db.collection("lessons");
       const lessons = await lessonsCollection.find().toArray();
       res.json(lessons);
+      
     } catch (error) {
       console.error("Error fetching lessons:", error);
       res.status(500).json({ message: "Error retrieving lessons" });
     }
-  })
+  });
 
   return router;
 }
