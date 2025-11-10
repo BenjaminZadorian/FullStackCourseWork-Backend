@@ -18,24 +18,24 @@ export default function loginRouter(db) {
             const existingUser = await userCollections.findOne({username})
 
             // if user does not exist return error
-            if (!user) {
-                res.status(401).json({ message: "Invalid credentials" });
+            if (!existingUser) {
+                return res.status(401).json({ message: "Invalid credentials" });
             }
 
             const passwordMatch = await bcrypt.compare(password, existingUser.password);
 
             // return if the passwords do not match
             if (!passwordMatch) {
-                res.status(401).json({ message: "Invalid credentials" });
+                return res.status(401).json({ message: "Invalid credentials" });
             }
 
             const loggedInUser = {
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-                phone: user.phone,
-                password: user.password, 
-                createdAt: user.createdAt
+                _id: existingUser._id,
+                username: existingUser.username,
+                email: existingUser.email,
+                phone: existingUser.phone,
+                password: existingUser.password, 
+                createdAt: existingUser.createdAt
             }
 
             return res.json({message: "Login Successful", user: loggedInUser});
