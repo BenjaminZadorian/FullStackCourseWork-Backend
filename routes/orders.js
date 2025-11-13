@@ -5,9 +5,9 @@ export default function ordersRouter(db) {
 
     router.post(`/`, async (req, res) => {
         try {
-            const { userName, userPhone, lessonIds, lessonSpaces} = req.body;
+            const { userName, ,userPhone, lessonIds, lessonSpaces} = req.body;
 
-            if (!userName || !userId || !userPhone || !lessonIds || !lessonSpaces) {
+            if (!userName || !userPhone || !lessonIds || !lessonSpaces) {
                 return res.status(400).json({ message: "All fields are required" });
             }
 
