@@ -32,12 +32,19 @@ export default function lessonsRouter(db) {
         return res.status(400).json({ message: "No update data provided" });
       }
 
-      const result = await lessonsCollection.updateOne(
+            let query;
+            if (ObjectId.isValid(lessonId)) {
+              query = { _id: new ObjectId(lessonId) };
+            } else {
+              query = { _id: lessonId };
+            }
+
+      const data = await lessonsCollection.updateOne(
         { _id: new ObjectId(lessonId) },
         { $set: updateData }
       );
 
-      if (result.matchedCount === 0) {
+      if (data.matchedCount === 0) {
         return res.status(404).json({ message: "Lesson not found" });
       }
 
