@@ -5,7 +5,7 @@ export default function ordersRouter(db) {
 
     router.post(`/`, async (req, res) => {
         try {
-            const { userName, userId, userPhone, lessonIds, lessonSpaces} = req.body;
+            const { userName, userPhone, lessonIds, lessonSpaces} = req.body;
 
             if (!userName || !userId || !userPhone || !lessonIds || !lessonSpaces) {
                 return res.status(400).json({ message: "All fields are required" });
@@ -15,7 +15,6 @@ export default function ordersRouter(db) {
 
             await orderCollections.insertOne({
                 userName: userName,
-                userId: userId,
                 userPhone: userPhone,
                 lessonIds: lessonIds,
                 lessonSpaces: lessonSpaces
