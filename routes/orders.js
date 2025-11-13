@@ -17,7 +17,7 @@ export default function ordersRouter(db) {
                 userName: userName,
                 userPhone: userPhone,
                 lessonIds: lessonIds,
-                lessonSpaces: lessonSpaces
+                lessonSpaces: lessonSpaces,
                 orderDate: new Date()
             });
 
