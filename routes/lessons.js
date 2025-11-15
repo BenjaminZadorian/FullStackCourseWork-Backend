@@ -53,15 +53,15 @@ export default function lessonsRouter(db) {
     try {
       const { topic, price, location, spaces, date, icon} = req.body;
 
-      if (!name || price == null || !location || !spaces || !date || !icon) {
+      if (!topic || price == null || !location || !spaces || !date || !icon) {
         return res.status(400).json({ message: "All fields are required" });
       }
 
       const newLesson = {
-        name,
-        price,
+        topic,
+        price: Number(price),
         location,
-        spaces,
+        spaces: parseInt(spaces),
         date: new Date(date),
         icon
       }
