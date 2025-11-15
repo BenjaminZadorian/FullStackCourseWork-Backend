@@ -23,16 +23,16 @@ export default function lessonsRouter(db) {
     try {
 
       const lessonId = req.params.id;
-      const { spaces } = req.body;
+      const { newSpaces } = req.body;
 
-      if (!spaces) {
+      if (!newSpaces) {
         return res.status(400).json({message: "Invalid number of spaces"});
       }
 
-      const objectId = newObjectId(lessonId);
+      const objectId = new ObjectId(lessonId);
       const result = await lessonsCollection.updateOne(
         { _id: objectId},
-        { $set: {spaces: spaces}}
+        { $set: {spaces: newSpaces}}
       );
 
       if (result.matchedCount === 0) {
