@@ -75,5 +75,25 @@ export default function lessonsRouter(db) {
     }
   })
 
+  // DELETE: Delete a lesson
+  router.delete(`/:id`, async (req,res) => {
+    try {
+      const lessonId = req.params.id;
+
+      const result = await lessonsCollection.deleteOne({
+        _id: new ObjectId(lessonId)
+      });
+
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ message: "Lesson not found" });
+      }
+
+      res.json({ message: "Lesson deleted successfully" });
+    } catch (error) {
+      console.error("Failed to delete lesson:", error);
+      res.status(500).json({ message: "Server error" }); 
+    }
+  })
+
   return router;
 }
