@@ -25,7 +25,7 @@ export default function lessonsRouter(db) {
       const lessonId = req.params.id;
       const { newSpaces } = req.body;
 
-      if (!newSpaces) {
+      if (newSpaces === undefined || newSpaces === null) {
         return res.status(400).json({message: "Invalid number of spaces"});
       }
 
