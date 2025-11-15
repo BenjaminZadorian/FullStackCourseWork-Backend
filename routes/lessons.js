@@ -48,5 +48,32 @@ export default function lessonsRouter(db) {
   })
 
 
+  // POST: Create a new lesson
+  router.post(`/`, async(req, res) => {
+    try {
+      const { topic, price, location, spaces, date, icon} = req.body;
+
+      if (!name || price == null || !location || !spaces || !date || !icon) {
+        return res.status(400).json({ message: "All fields are required" });
+      }
+
+      const newLesson = {
+        name,
+        price,
+        location,
+        spaces,
+        date: new Date(date),
+        icon
+      }
+
+      await lessonsCollection.insertOne(newLesson);
+
+      res.status(201).json({ message : "Lesson successfully created", lesson : newLesson});
+    } catch (error) {
+        console.error("Failed to create lesson:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+  })
+
   return router;
 }
