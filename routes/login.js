@@ -31,12 +31,14 @@ export default function loginRouter(db) {
 
             // return the object of the logged in user
             return res.status(200).json({
-                _id: existingUser._id,
-                username: existingUser.username,
-                email: existingUser.email,
-                phone: existingUser.phone,
-                password: existingUser.password, 
-                createdAt: existingUser.createdAt
+                message: "Login Successful",
+                user: {
+                    _id: existingUser._id,
+                    username: existingUser.username,
+                    email: existingUser.email,
+                    phone: existingUser.phone,
+                    createdAt: existingUser.createdAt
+                }
             });
 
         } catch (error) {
