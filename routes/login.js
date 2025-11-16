@@ -29,16 +29,16 @@ export default function loginRouter(db) {
                 return res.status(401).json({ message: "Invalid credentials" });
             }
 
-            const loggedInUser = {
+            // return the object of the logged in user
+            return res.status(200).json({
                 _id: existingUser._id,
                 username: existingUser.username,
                 email: existingUser.email,
                 phone: existingUser.phone,
                 password: existingUser.password, 
                 createdAt: existingUser.createdAt
-            }
+            });
 
-            return res.json({message: "Login Successful", user: loggedInUser});
         } catch (error) {
             console.error("Login error:", error);
             return res.status(500).json({ message: "Server error" });
