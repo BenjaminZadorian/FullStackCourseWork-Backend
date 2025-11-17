@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./database.js";
 import PropertiesReader from "properties-reader";
+import logger from "./middleware/logger.js";
 
 // import routes
 import lessonsRouter from "./routes/lessons.js";
@@ -26,6 +27,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(logger);
 
 
 
