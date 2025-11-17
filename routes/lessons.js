@@ -95,5 +95,28 @@ export default function lessonsRouter(db) {
     }
   })
 
+// GET: Search the database for whatever the user is searching for
+router.get(`/search`, async (req, res) => {
+  try {
+    const searchQuery = req.query;
+
+    if (!searchQuery || searchQuery.trim() === "") {
+      return res.status(400).json({ message: "No search query provided" });
+    }
+
+    const results = await lessonsCollection.find({
+      $or: [
+        {topic: {$regex: searchQuery, $options: "i"}}
+      ]
+    }).toArray();
+
+    return res.json(results);
+
+  } catch (error) {
+    console.error("Search error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+})
+
   return router;
 }

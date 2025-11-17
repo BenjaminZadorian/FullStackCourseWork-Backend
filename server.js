@@ -27,6 +27,7 @@ app.use(
 );
 
 app.use(express.json());
+// add logger to the backend to print out all routes when used
 app.use(logger);
 
 
