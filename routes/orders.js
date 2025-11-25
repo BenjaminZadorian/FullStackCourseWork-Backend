@@ -36,6 +36,8 @@ export default function ordersRouter(db) {
         try {
             const userId = req.params.userId;
 
+            console.log("UserID: " + userId);
+
             const results = await orderCollections.find({
                 userId: userId
             }).toArray();
