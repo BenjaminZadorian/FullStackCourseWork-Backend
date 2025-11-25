@@ -32,17 +32,15 @@ export default function ordersRouter(db) {
     });
     
     // GET: get all orders for a chosen user
-    router.get(`/:id`, async (req, res) => {
+    router.get(`/user/:userId`, async (req, res) => {
         try {
-            const userId = req.params.id;
-
-            if (!userId) {
-                return res.status(400).json({message: "No user id is given"});
-            }
+            const userId = req.params.userId;
 
             const results = await orderCollections.find({
+                userId: userId
+            }).toArray();
 
-            })
+            return res.json(results);
         } catch (error) {
             console.error("Order retrival failed: ", error);
             res.status(500).json({message: "Retrival Error"});
