@@ -95,8 +95,8 @@ export default function lessonsRouter(db) {
     }
   })
 
-// GET: Search the database for whatever the user is searching for
-router.get(`/search`, async (req, res) => {
+  // GET: Search the database for whatever the user is searching for
+  router.get(`/search`, async (req, res) => {
   try {
     const searchQuery = req.query.q;
 

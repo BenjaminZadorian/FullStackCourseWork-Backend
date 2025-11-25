@@ -3,6 +3,7 @@ import express from "express";
 export default function ordersRouter(db) {
     const router = express.Router();
 
+    // POST: a new order
     router.post(`/`, async (req, res) => {
         try {
             const { userName, userPhone, lessonIds, lessonSpaces} = req.body;
@@ -28,6 +29,13 @@ export default function ordersRouter(db) {
             res.status(500).json({message: "Order Error"});
         }
     });
+    
+    // GET: get all orders for a chosen user
+    router.get(`/:id`, async (req, res) => {
+        try {
+            const userId = req.params.id;
+        }
+    })
 
     return router;
 
