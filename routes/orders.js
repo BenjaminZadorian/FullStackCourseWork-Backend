@@ -34,6 +34,17 @@ export default function ordersRouter(db) {
     router.get(`/:id`, async (req, res) => {
         try {
             const userId = req.params.id;
+
+            if (!userId) {
+                return res.status(400).json({message: "No user id is given"});
+            }
+
+            const results = await orderCollections.find({
+
+            })
+        } catch (error) {
+            console.error("Order retrival failed: ", error);
+            res.status(500).json({message: "Retrival Error"});
         }
     })
 
