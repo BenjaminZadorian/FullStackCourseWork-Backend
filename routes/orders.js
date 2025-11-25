@@ -34,9 +34,7 @@ export default function ordersRouter(db) {
     // GET: get all orders for a chosen user
     router.get(`/user/:userId`, async (req, res) => {
         try {
-            const userId = req.params;
-
-            console.log("UserID: " + userId);
+            const { userId } = req.params;
 
             const orderCollections = db.collection("orders");
 
