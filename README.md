@@ -17,3 +17,5 @@ npm run dev
 ```sh
 npm run build
 ```
+# MongoDB Collections Exports
+/MongoDBExport/ -> All collections exported
