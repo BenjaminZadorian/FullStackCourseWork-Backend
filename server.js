@@ -52,21 +52,29 @@ app.get(`/`, (req, res) => {
 })
 
 
-connectDB().then((db) => {
-  console.log("Database connected");
-}).catch((err) => {
-  console.error("DB connection failed:", err);
-});
+const start = async () => {
+  try {
+    const db = await connectDB();
+    console.log("Database connected");
 
-app.use('/lessons', lessonsRouter());
-app.use('/register', registerRouter());
-app.use('/login', loginRouter());
-app.use('/orders', ordersRouter());
+    app.use("/lessons", lessonsRouter(db));
+    app.use("/register", registerRouter(db));
+    app.use("/login", loginRouter(db));
+    app.use("/orders", ordersRouter(db));
 
-// make sure the logger works for error logs too
-app.use((req, res) => {
-  console.log(`404 - ${req.method} ${req.url}`);
-  res.status(404).json({ error: "Not found" });
-});
+    // error handler
+    app.use((req, res) => {
+      console.log(`404 - ${req.method} ${req.url}`);
+      res.status(404).json({ error: "Not found" });
+    });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.listen(PORT, () =>
+      console.log(`Server running on port ${PORT}`)
+    );
+
+  } catch (err) {
+    console.error("Failed to connect to the database:", err);
+  }
+};
+
+start();
