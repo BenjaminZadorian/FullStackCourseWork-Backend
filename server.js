@@ -51,15 +51,22 @@ app.get(`/`, (req, res) => {
     res.send('Backend connected');
 })
 
+
 connectDB().then((db) => {
+  console.log("Database connected");
+}).catch((err) => {
+  console.error("DB connection failed:", err);
+});
 
-    // Connect routes
-    app.use('/lessons', lessonsRouter(db));
-    app.use('/register', registerRouter(db));
-    app.use('/login', loginRouter(db));
-    app.use('/orders', ordersRouter(db));
+app.use('/lessons', lessonsRouter());
+app.use('/register', registerRouter());
+app.use('/login', loginRouter());
+app.use('/orders', ordersRouter());
 
-    app.listen(PORT, () => console.log(`Server connected on port ${PORT}`));
-}).catch((error) => {
-    console.error("Failed to connect to the database: ", error);
-})
+// make sure the logger works for error logs too
+app.use((req, res) => {
+  console.log(`404 - ${req.method} ${req.url}`);
+  res.status(404).json({ error: "Not found" });
+});
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
