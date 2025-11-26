@@ -106,7 +106,13 @@ export default function lessonsRouter(db) {
 
     const results = await lessonsCollection.find({
       $or: [
-        {topic: {$regex: searchQuery, $options: "i"}}
+        // if the query is a string
+        { topic: { $regex: searchQuery, $options: "i" } },
+        { location: { $regex: searchQuery, $options: "i" } },
+
+        // conver to a number if the query is a number
+        { price: isNaN(Number(searchQuery)) ? null : Number(searchQuery) },
+        { spaces: isNaN(Number(searchQuery)) ? null : Number(searchQuery) }
       ]
     }).toArray();
 
